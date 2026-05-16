@@ -11,7 +11,6 @@ class CommandCog(commands.Cog):
         await ctx.channel.purge(limit=nombre + 1)
         msg = await ctx.send(f"✅ {nombre} messages supprimés.")
         await msg.delete(delay=3)
-    
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def nuke(self, ctx):
@@ -24,7 +23,9 @@ class CommandCog(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_channels=True)
-    async def lock(self, ctx, role: discord.Role):
+    async def lock(self, ctx, role: discord.Role = None):
+        if role is None:
+            role = ctx.guild.default_role
         perms = ctx.channel.permissions_for(role)
         if not perms.send_messages:
             msg = await ctx.send("❌ Le salon est déjà lock.")
@@ -33,10 +34,12 @@ class CommandCog(commands.Cog):
             await ctx.channel.set_permissions(role, send_messages=False)
             msg = await ctx.send("✅ Salon lock.")
             await msg.delete(delay=3)
-    
+
     @commands.command()
     @commands.has_permissions(manage_channels=True)
-    async def unlock(self, ctx, role: discord.Role):
+    async def unlock(self, ctx, role: discord.Role = None):
+        if role is None:
+            role = ctx.guild.default_role
         perms = ctx.channel.permissions_for(role)
         if not perms.send_messages:
             await ctx.channel.set_permissions(role, send_messages=True)
@@ -45,6 +48,21 @@ class CommandCog(commands.Cog):
         else:
             msg = await ctx.send("❌ Le salon n'est pas lock.")
             await msg.delete(delay=3)
+    
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    async def suppr(self, ctx, member: discord.Member, amount: int):
+        if amount < 1 or amount > 20:
+            msg = await ctx.send("❌ Le nombre de messages doit être entre 1 et 20.")
+            await msg.delete(delay=3)
+            return
+
+        deleted = await ctx.channel.suppr(limit=200, check=lambda m: m.author == member, before=ctx.message)
+        deleted = deleted[:amount]
+
+        msg = await ctx.send(f"✅ {len(deleted)} message(s) de {member.mention} supprimé(s).")
+        await msg.delete(delay=3)
+        await ctx.message.delete()
 
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
