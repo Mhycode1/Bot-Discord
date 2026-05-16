@@ -57,7 +57,7 @@ class CommandCog(commands.Cog):
             await msg.delete(delay=3)
             return
 
-        deleted = await ctx.channel.suppr(limit=200, check=lambda m: m.author == member, before=ctx.message)
+        deleted = await ctx.channel.purge(limit=200, check=lambda m: m.author == member, before=ctx.message)
         deleted = deleted[:amount]
 
         msg = await ctx.send(f"✅ {len(deleted)} message(s) de {member.mention} supprimé(s).")
