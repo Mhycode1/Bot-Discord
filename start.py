@@ -13,7 +13,7 @@ class MonBot(commands.Bot):
             await self.load_extension(f'cogs.{extension}')
 
 intents = discord.Intents.all()
-bot = MonBot(command_prefix = ':)', intents=intents)
+bot = MonBot(command_prefix = ':)', intents=intents, help_command=None))
 
 keep_alive()
 bot.run(token=token)
