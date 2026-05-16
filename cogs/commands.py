@@ -107,30 +107,29 @@ class CommandCog(commands.Cog):
             msg = await ctx.send("❌ Le nombre de messages doit être supérieur à 0.")
             await msg.delete(delay=3)
             return
-
+    
         total_deleted = 0
-
+    
         for channel in ctx.guild.text_channels:
             if total_deleted >= amount:
                 break
             try:
                 remaining = amount - total_deleted
                 deleted = await channel.purge(
-                    limit=200,
-                    check=lambda m: m.author == member,
-                    before=ctx.message if channel == ctx.channel else None
+                    limit=None,
+                    check=lambda m, u=member: m.author == u,
+                    before=ctx.message if channel == ctx.channel else None,
+                    oldest_first=False
                 )
-                deleted = deleted[:remaining]
                 total_deleted += len(deleted)
+                if total_deleted >= amount:
+                    break
             except discord.Forbidden:
                 continue
-
+    
         msg = await ctx.send(f"✅ {total_deleted} message(s) de {member.mention} supprimé(s) sur tout les salons.")
         await msg.delete(delay=3)
         await ctx.message.delete()
-
-async def setup(bot):
-    await bot.add_cog(CommandCog(bot))
 
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
