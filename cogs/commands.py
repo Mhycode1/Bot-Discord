@@ -87,6 +87,7 @@ class CommandCog(commands.Cog):
         embed.add_field(name="🛠️ Modération", value="`clear` `nuke` `lock` `unlock` `report`", inline=False)
         embed.add_field(name="🎨 Fun", value="`color` `avatar`", inline=False)
         embed.add_field(name="📊 Info", value="`botstats`", inline=False)
+        await ctx.send(embed=embed)
 
 
 async def setup(bot):
