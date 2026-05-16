@@ -81,6 +81,13 @@ class CommandCog(commands.Cog):
         await ctx.message.delete()
         await ctx.send("✅ Report envoyé.", delete_after=3)
 
+    @commands.command()
+    async def help(self, ctx):
+        embed = discord.Embed(title="Les différentes commandes : ")
+        embed.add_field(name="🛠️ Modération", value="`clear` `nuke` `lock` `unlock` `report`", inline=False)
+        embed.add_field(name="🎨 Fun", value="`color` `avatar`", inline=False)
+        embed.add_field(name="📊 Info", value="`botstats`", inline=False)
+
 
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
