@@ -64,6 +64,22 @@ class CommandCog(commands.Cog):
         embed.add_field(name="🌍 Serveurs", value=len(self.bot.guilds), inline=True)
         embed.add_field(name="👥 Utilisateurs", value=len(self.bot.users), inline=True)
         await ctx.send(embed=embed)
+    
+    @commands.command()
+    async def report(self, ctx, membre: discord.Member, *, raison: str):
+        salon = discord.utils.get(ctx.guild.channels, name="reports")
+        if not salon:
+            return await ctx.send("❌ Aucun salon `reports` trouvé.")
+        
+        embed = discord.Embed(title="🚨 Nouveau report", color=discord.Color.red())
+        embed.add_field(name="Reporté", value=membre.mention, inline=True)
+        embed.add_field(name="Reporté par", value=ctx.author.mention, inline=True)
+        embed.add_field(name="Raison", value=raison, inline=False)
+        embed.add_field(name="Salon", value=ctx.channel.mention, inline=True)
+        
+        await salon.send(embed=embed)
+        await ctx.message.delete()
+        await ctx.send("✅ Report envoyé.", delete_after=3)
 
 
 async def setup(bot):
