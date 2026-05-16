@@ -28,5 +28,12 @@ class FunCog(commands.Cog):
         
         await ctx.send(embed=embed, file=discord.File(buffer, filename="color.png"))
 
+    @commands.command()
+    async def avatar(self, ctx, membre: discord.Member):
+        Avatar = membre.display_avatar.url
+        embed = discord.Embed(title=f"Avatar de {membre}")
+        embed.set_image(url=Avatar)
+        await ctx.send(embed=embed)
+
 async def setup(bot):
     await bot.add_cog(FunCog(bot))
