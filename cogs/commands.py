@@ -80,13 +80,25 @@ class CommandCog(commands.Cog):
         await salon.send(embed=embed)
         await ctx.message.delete()
         await ctx.send("✅ Report envoyé.", delete_after=3)
-
+    
     @commands.command()
     async def help(self, ctx):
         embed = discord.Embed(title="Les différentes commandes : ")
         embed.add_field(name="🛠️ Modération", value="`clear` `nuke` `lock` `unlock` `report`", inline=False)
         embed.add_field(name="🎨 Fun", value="`color` `avatar`", inline=False)
         embed.add_field(name="📊 Info", value="`botstats`", inline=False)
+        await ctx.send(embed=embed)
+    
+    @commands.command()
+    async def serverinfo(self, ctx):
+        guild = ctx.guild
+        embed = discord.Embed(title=f"📊 Stats de {guild.name}", color=discord.Color.blurple())
+        embed.set_thumbnail(url=guild.icon.url if guild.icon else None)
+        embed.add_field(name="👑 Propriétaire", value=guild.owner.mention, inline=True)
+        embed.add_field(name="👥 Membres", value=guild.member_count, inline=True)
+        embed.add_field(name="💬 Salons", value=len(guild.channels), inline=True)
+        embed.add_field(name="🎭 Rôles", value=len(guild.roles), inline=True)
+        embed.add_field(name="📅 Créé le", value=discord.utils.format_dt(guild.created_at, "D"), inline=True)
         await ctx.send(embed=embed)
 
 
