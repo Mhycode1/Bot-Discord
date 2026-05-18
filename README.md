@@ -8,7 +8,7 @@ A simple and powerful Discord bot built with Python to simplify server managemen
 
 - 🛡️ **Moderation tools** — keep your server clean and safe
 - 📊 **Server info** — quick access to useful stats
-- ⚙️ **Easy to use** — simple slash commands
+- ⚙️ **Easy to use** — simple prefixs commands
 
 ---
 
@@ -17,16 +17,16 @@ A simple and powerful Discord bot built with Python to simplify server managemen
 ### 🔨 Moderation
 | Command | Description |
 |---|---|
-| `/nuke` | Deletes all messages in a channel |
-| `/clear` | Clears a specified number of messages |
-| `/lock` | Locks a channel so members can't send messages |
-| `/report` | Reports a user to moderators |
+| `:)nuke` | Deletes all messages in a channel |
+| `:)clear` | Clears a specified number of messages |
+| `:)lock` | Locks a channel so members can't send messages |
+| `:)report` | Reports a user to moderators |
 
 ### ℹ️ Information
 | Command | Description |
 |---|---|
-| `/botstats` | Displays bot statistics (uptime, servers, etc.) |
-| `/serverinfo` | Displays server information (members, creation date, etc.) |
+| `:)botstats` | Displays bot statistics (uptime, servers, etc.) |
+| `:)serverinfo` | Displays server information (members, creation date, etc.) |
 
 ---
 
