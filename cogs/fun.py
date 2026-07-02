@@ -42,9 +42,9 @@ class FunCog(commands.Cog):
             await ctx.send(f"{membre} n'a pas de bannière.")
             return
     
-    embed = discord.Embed(title=f"Bannière de {membre}")
-    embed.set_image(url=user.banner.url)
-    await ctx.send(embed=embed)
+        embed = discord.Embed(title=f"Bannière de {membre}")
+        embed.set_image(url=user.banner.url)
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(FunCog(bot))
