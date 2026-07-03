@@ -48,8 +48,8 @@ class FunCog(commands.Cog):
         if user.banner.is_animated():
             banner_url = str(user.banner.with_format('gif').url)
     
-    embed.set_image(url=banner_url)
-    await ctx.send(embed=embed)
+        embed.set_image(url=banner_url)
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(FunCog(bot))
