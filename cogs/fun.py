@@ -35,7 +35,7 @@ class FunCog(commands.Cog):
         embed.set_image(url=Avatar)
         await ctx.send(embed=embed)
     
-   @commands.command()
+    @commands.command()
     async def banniere(self, ctx, membre: discord.Member):
         user = await self.bot.fetch_user(membre.id)
         if user.banner is None:
