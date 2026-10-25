@@ -9,7 +9,6 @@ class Duel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        # Création de la base de données
         self.db = sqlite3.connect("combats.db")
 
         self.db.execute("""
@@ -23,7 +22,6 @@ class Duel(commands.Cog):
 
         self.db.commit()
 
-    # Récupérer les statistiques d'un joueur
     def get_stats(self, user_id):
         self.db.execute(
             "INSERT OR IGNORE INTO combat_stats (user_id) VALUES (?)",
@@ -38,7 +36,6 @@ class Duel(commands.Cog):
 
         return cursor.fetchone()
 
-    # Enregistrer une victoire et une défaite
     def update_stats(self, winner_id, loser_id):
         self.get_stats(winner_id)
         self.get_stats(loser_id)
@@ -55,7 +52,6 @@ class Duel(commands.Cog):
 
         self.db.commit()
 
-    # Commande pour consulter les statistiques
     @commands.command(name="stats_combat")
     async def stats_combat(
         self,
@@ -86,7 +82,6 @@ class Duel(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    # Commande pour défier un joueur
     @commands.command(name="duel")
     async def duel(self, ctx, membre: discord.Member = None):
 
@@ -124,7 +119,6 @@ class Duel(commands.Cog):
                     )
                     return
 
-                # Désactiver les boutons après acceptation
                 for item in self.children:
                     item.disabled = True
 
@@ -133,7 +127,6 @@ class Duel(commands.Cog):
                     view=self
                 )
 
-                # Tirage au sort du résultat
                 joueurs = [ctx.author, membre]
                 gagnant = random.choice(joueurs)
                 perdant = (
