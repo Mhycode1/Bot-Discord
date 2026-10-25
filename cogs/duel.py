@@ -57,30 +57,18 @@ class Duel(commands.Cog):
         name="stats_combat",
         description="Consulte les statistiques de combat d'un membre."
     )
-    @app_commands.describe(membre="Le membre dont tu veux voir les statistiques")
-    async def stats_combat(
-        self,
-        interaction: discord.Interaction,
-        membre: discord.Member = None
-    ):
-        membre = membre or interaction.user
-
+    @commands.command(name="stats_combat")
+    async def stats_combat(self, ctx, membre: discord.Member = None):
+        membre = membre or ctx.author
+    
         wins, losses, draws = self.get_stats(membre.id)
-        total = wins + losses + draws
-        taux = (wins / total * 100) if total else 0
-
-        embed = discord.Embed(
-            title=f"⚔️ Statistiques de {membre.display_name}",
-            color=discord.Color.purple()
+    
+        await ctx.send(
+            f"⚔️ **Statistiques de {membre.display_name}**\n"
+            f"🏆 Victoires : {wins}\n"
+            f"💀 Défaites : {losses}\n"
+            f"🤝 Égalités : {draws}"
         )
-        embed.set_thumbnail(url=membre.display_avatar.url)
-        embed.add_field(name="🏆 Victoires", value=str(wins))
-        embed.add_field(name="💀 Défaites", value=str(losses))
-        embed.add_field(name="🤝 Égalités", value=str(draws))
-        embed.add_field(name="⚔️ Combats", value=str(total))
-        embed.add_field(name="📊 Taux de victoire", value=f"{taux:.1f}%")
-
-        await interaction.response.send_message(embed=embed)
 
     def cog_unload(self):
         self.db.close()
