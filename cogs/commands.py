@@ -87,7 +87,7 @@ class CommandCog(commands.Cog):
         embed.add_field(name="🛠️ Modération", value="`clear` `nuke` `lock` `unlock` `report`", inline=False)
         embed.add_field(name="🎨 Fun", value="`color` `avatar` `banniere`", inline=False)
         embed.add_field(name="📊 Info", value="`botstats` `serverinfo`", inline=False)
-        embed.add_field(name="🎮 Jeux", value="'code' 'classement' 'profil'", inline=False)
+        embed.add_field(name="🎮 Jeux", value="`code` `classement` `profil`", inline=False)
         await ctx.send(embed=embed)
     
     @commands.command()
