@@ -24,7 +24,7 @@ class CodeSecret(commands.Cog):
             await ctx.send("Tu as déjà une partie en cours enflure !!")
             return
 
-        code_secret = "".join(random.sample("0123436789", 3))
+        code_secret = "".join(random.sample("0123456789", 3))
         self.parties[ctx.author.id] = True
 
         await ctx.send(
