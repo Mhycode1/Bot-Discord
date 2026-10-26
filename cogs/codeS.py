@@ -24,12 +24,12 @@ class CodeSecret(commands.Cog):
             await ctx.send("Tu as déjà une partie en cours enflure !!")
             return
 
-        code_secret = "".join(random.sample("0123456789", 5))
+        code_secret = "".join(random.sample("0123436789", 3))
         self.parties[ctx.author.id] = True
 
         await ctx.send(
             "🔐 **Code secret de Mhyst**\n"
-            "Trouve le code à 5 chiffres !\n"
+            "Trouve le code à 3 chiffres !\n"
             "Tu as 8 tentatives. Envoie ton code dans le salon."
         )
 
@@ -48,8 +48,8 @@ class CodeSecret(commands.Cog):
 
             proposition = message.content.strip()
 
-            if len(proposition) != 5 or not proposition.isdigit():
-                await ctx.send("Entre un nombre de 5 chiffres enflure !")
+            if len(proposition) != 3 or not proposition.isdigit():
+                await ctx.send("Entre un nombre de 3 chiffres enflure !")
                 continue
 
             if proposition == code_secret:
@@ -61,7 +61,7 @@ class CodeSecret(commands.Cog):
 
             bien_places = 0
 
-            for i in range(5):
+            for i in range(3):
                 if proposition[i] == code_secret[i]:
                     bien_places += 1
 
